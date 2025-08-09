@@ -1,0 +1,20 @@
+# cloudbuild.yaml
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+substitutions:
+  _REGION: europe-west1
+  _SERVICE_NAME: helloworld
+
+steps:
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -euxo
+      - pipefail
+      - -c
+      - |
+        gcloud run deploy ${_SERVICE_NAME} \
+          --region=${_REGION} \
+          --source=. \
+          --allow-unauthenticated
