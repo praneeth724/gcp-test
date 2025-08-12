@@ -1,4 +1,3 @@
-# cloudbuild.yaml
 options:
   logging: CLOUD_LOGGING_ONLY
 
@@ -17,4 +16,11 @@ steps:
         gcloud run deploy ${_SERVICE_NAME} \
           --region=${_REGION} \
           --source=. \
-          --allow-unauthenticated
+          --allow-unauthenticated \
+          --cpu=1 \
+          --memory=512Mi \
+          --timeout=300 \
+          --max-instances=3 \
+          --startup-cpu-boost \
+          --cpu-throttling \
+          --execution-environment=gen2
